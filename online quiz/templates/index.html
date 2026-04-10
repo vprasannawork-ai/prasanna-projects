@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Online Quiz Portal</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand">
+        <span class="brand-mark">Q</span>
+        <div>
+          <strong>Online Quiz Portal</strong>
+        </div>
+      </div>
+      <div class="user-info">
+        {% if current_user.is_authenticated %}
+          <span>Welcome, {{ current_user.username }}!</span>
+          <a href="{{ url_for('logout') }}" class="button button-small">Logout</a>
+        {% else %}
+          <a href="{{ url_for('login') }}" class="button button-small">Sign In</a>
+          <a href="{{ url_for('register') }}" class="button button-small button-secondary">Sign Up</a>
+        {% endif %}
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow">Welcome to your learning zone</span>
+          <h1>Online Quiz Portal</h1>
+          {% if current_user.is_authenticated %}
+            <p>Welcome back, {{ current_user.username }}! Challenge yourself with interactive quizzes, enjoy a polished interface, and get instant results that help you improve.</p>
+          {% else %}
+            <p>Challenge yourself with interactive quizzes, enjoy a polished interface, and get instant results that help you improve. Sign up to get started!</p>
+          {% endif %}
+          <div class="hero-actions">
+            {% if current_user.is_authenticated %}
+              <a class="button" href="/quiz">Start Quiz</a>
+              <a class="button button-secondary" href="#features">View Features</a>
+            {% else %}
+              <a class="button" href="{{ url_for('register') }}">Get Started</a>
+              <a class="button button-secondary" href="{{ url_for('login') }}">Sign In</a>
+            {% endif %}
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <div class="hero-stat">
+            <span>Total Questions</span>
+            <strong>{{ total_questions }}</strong>
+          </div>
+          <div class="hero-note">
+            <h2>Learn with clarity</h2>
+            <p>Each quiz round is designed to be clean, responsive, and easy to navigate on any device.</p>
+          </div>
+        </aside>
+      </section>
+
+      <section id="features" class="feature-grid">
+        <article class="feature-card">
+          <h2>Interactive design</h2>
+          <p>Modern quiz layout with responsive controls and clear answer feedback.</p>
+        </article>
+        <article class="feature-card">
+          <h2>Instant results</h2>
+          <p>Submit your answers and immediately see your score plus a detailed review.</p>
+        </article>
+        <article class="feature-card">
+          <h2>User-friendly flow</h2>
+          <p>Simple navigation, consistent styling, and strong contrast for readability.</p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
